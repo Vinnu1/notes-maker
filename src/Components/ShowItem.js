@@ -12,21 +12,12 @@ class ShowItem extends Component {
 }
 
   componentDidMount(){
-      this.setState({
-            items: [
-            {
-                title:"Homework",
-                body:"Complete network security assignment",
-            },
-            {
-                title:"ToDo",
-                body:"Laundry, bill payments"
-            },
-            {
-                title:"Weekend Plans",
-                body:"Watch Deadpool 2"
-            },
-            ]});
+      
+    fetch('/show').then(res => res.json()).then(data => {
+        //console.log(data)
+        this.setState({items:data})
+    })
+
   }  
   
   

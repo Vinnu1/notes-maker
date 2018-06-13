@@ -2,6 +2,10 @@
   "name": "note_maker",
   "version": "1.0.0",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jquery": "^3.3.1",
+    "mongojs": "^2.6.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4"
@@ -11,5 +15,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "author": "Vinayak Sinha",
+  "license": "ISC"
 }
