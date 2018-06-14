@@ -5,7 +5,7 @@ const path = require('path')
 const router = express.Router()
 const bodyParser = require('body-parser')
 const mongojs = require('mongojs')
-const db = mongojs.ObjectId
+const db = mongojs('notes',['note'])
 // router.get('/homecontent',function(req,res){
 //     res.send([{text:"This is home"}]);
 // })
@@ -24,6 +24,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //when a post request arrives
 router.post('/submit',function(req,res){
     console.log(req.body);
+    let newItem = {
+        title: req.body.data.title,
+        body: req.body.data.body
+    }
+    db.note.insert(newItem, function(err,result){
+        if(err){
+            console.log("DB insert error:",err)
+        }
+    })
     //res.send(newItem);
     //console.log(req.body.title,req.body.Body)
 })
