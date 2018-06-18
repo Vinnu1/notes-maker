@@ -14,7 +14,7 @@ class ShowItem extends Component {
   componentDidMount(){
       
     fetch('/show').then(res => res.json()).then(data => {
-        //console.log(data)
+        console.log(data)
         this.setState({items:data})
     })
 
@@ -27,7 +27,7 @@ class ShowItem extends Component {
     Items = this.state.items.map(element =>{
         
         return (
-            <Item key={element.title} title={element.title} body={element.body}/>
+            <Item key={element._id} title={element.title} body={element.body}/>
         )
     })
     }

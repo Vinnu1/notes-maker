@@ -38,7 +38,13 @@ router.post('/submit',function(req,res){
 })
 
 router.get('/show',function(req,res){
-    let items = [
+    let all_items = [];
+    db.note.find(function(err,items){
+        console.log(items);
+        all_items = items; 
+        res.send(all_items); 
+    });
+    /*let items = [
         {
             title:"Homework",
             body:"Complete network security assignment",
@@ -52,8 +58,7 @@ router.get('/show',function(req,res){
             body:"Watch Deadpool 2"
         }
         ]
-    
-    res.send(items);    
+    */   
 })
 
 //build folder is static and index file will be displayed
