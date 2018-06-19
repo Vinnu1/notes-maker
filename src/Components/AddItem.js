@@ -3,11 +3,12 @@ const $ = require('jquery');
 
 class AddItem extends Component {
   
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       title:'',
-      body:''
+      body:'',
+      insert:0
     }
     this.titleChange = this.titleChange.bind(this);
     this.bodyChange = this.bodyChange.bind(this);
@@ -24,7 +25,11 @@ class AddItem extends Component {
   
   submit(){
     $.post('/submit',{data:this.state});
-    this.setState({title:'',body:''})
+    let count = this.state.insert + 1;
+    console.log("count",count)
+    this.setState({title:'',body:'',insert:count},()=>{
+      this.props.changeInsert(this.state.insert);
+    })
   }
 
   render() {

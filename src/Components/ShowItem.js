@@ -2,23 +2,35 @@ import React, { Component } from 'react';
 import Item from './Item';
 
 class ShowItem extends Component {
-  constructor(){
-      super();
+  constructor(props){
+      super(props);
       this.state = {
           items: [
 
-          ]
+          ],
+          insert:props.Insert
     }
 }
 
-  componentDidMount(){
-      
+  fetchFunc(){
     fetch('/show').then(res => res.json()).then(data => {
         console.log(data)
         this.setState({items:data})
     })
-
   }  
+
+  componentDidMount(){
+    this.fetchFunc();
+  }
+  
+  componentWillReceiveProps(props){
+      console.log("component will receive props:",props.Insert)
+      this.setState({insert:props.Insert},()=>{
+        console.log(this.state.insert);
+        this.fetchFunc();
+      })
+      
+  }
   
   
   render() {
