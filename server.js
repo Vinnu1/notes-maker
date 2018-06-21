@@ -6,6 +6,7 @@ const router = express.Router()
 const bodyParser = require('body-parser')
 const mongojs = require('mongojs')
 const db = mongojs('notes',['note'])
+let ObjectId = mongojs.ObjectId
 // router.get('/homecontent',function(req,res){
 //     res.send([{text:"This is home"}]);
 // })
@@ -61,6 +62,15 @@ router.get('/show',function(req,res){
     */   
 })
 
+//delete
+app.delete('/delete/:id',function(req,res){
+    db.note.remove({_id: ObjectId(req.params.id)},function(err,result){
+        if(err){
+            console.log(err);
+        }
+    })
+})
+
 //build folder is static and index file will be displayed
 app.use(express.static(path.resolve(__dirname, './build')));
 
@@ -73,4 +83,4 @@ app.use('/',router)
 */
 
 //listen on 3000 port
-app.listen(5000, () => console.log('Active on 3000'));
+app.listen(5000, () => console.log('Active on 5000 port.'));

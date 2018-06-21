@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Item from './Item';
+const $ = require('jquery')
 
 class ShowItem extends Component {
   constructor(props){
@@ -8,9 +9,27 @@ class ShowItem extends Component {
           items: [
 
           ],
-          insert:props.Insert
+          insert:props.Insert,
+          deleted:0
     }
 }
+
+  deleteFunc(id){
+    console.log("delete call:",id);
+    let confirmation = window.confirm('Are you sure you wish to delete this item?')
+    if(confirmation){
+        $.ajax({
+            type:'Delete',
+            url:"/delete/"+id,
+        })
+        let count = this.state.deleted + 1;
+        this.setState({deleted:count},()=>{
+        this.fetchFunc();  
+      })    
+    }else{
+        return false;
+    }
+  }
 
   fetchFunc(){
     fetch('/show').then(res => res.json()).then(data => {
@@ -29,7 +48,6 @@ class ShowItem extends Component {
         console.log(this.state.insert);
         this.fetchFunc();
       })
-      
   }
   
   
@@ -39,7 +57,13 @@ class ShowItem extends Component {
     Items = this.state.items.map(element =>{
         
         return (
-            <Item key={element._id} title={element.title} body={element.body}/>
+            <Item 
+            key={element._id} 
+            id={element._id} 
+            title={element.title} 
+            body={element.body}
+            delete = {this.deleteFunc.bind(this)}
+            />
         )
     })
     }
